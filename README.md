@@ -109,8 +109,24 @@ This project uses **(app)-router, feature** architecture:
 
 ## 🚀 Deployment
 
+### Vercel (Recommended - Auto-Deploy)
+
+The project includes a GitHub Actions workflow that automatically deploys to Vercel on every push to `main` or `master`.
+
+**Setup:**
+1. Connect your GitHub repo to Vercel
+2. Add these secrets to your GitHub repository:
+   - `VERCEL_TOKEN` - Your Vercel authentication token
+   - `VERCEL_ORG_ID` - Your Vercel organization ID
+   - `VERCEL_PROJECT_ID` - Your Vercel project ID
+
+3. On next push, the workflow automatically builds and deploys!
+
+[Get your Vercel tokens →](https://vercel.com/account/tokens)
+
+### Manual Deployment
+
 Build output is ready for static hosting:
-- Vercel
 - Netlify
 - GitHub Pages
 - AWS S3 + CloudFront

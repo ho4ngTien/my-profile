@@ -1,7 +1,7 @@
 const projects = [
   {
     title: 'Flood Rescue Coordination & Relief Management',
-    type: 'Hệ thống Fullstack',
+    type: 'Hệ thống Web / Fullstack',
     description: 'Hệ thống quản lý, điều phối cứu hộ và phân phối cứu trợ thiên tai lũ lụt giúp kết nối tình nguyện viên và nạn nhân kịp thời.',
     tech: ['Java', 'HTML', 'CSS', 'JavaScript'],
     githubUrl: 'https://github.com/longtq2501/Flood-Rescue-Coordination-and-Relief-Management-System',
