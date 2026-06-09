@@ -47,10 +47,6 @@ jobs:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
-    defaults:
-      run:
-        working-directory: frontend
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -66,10 +62,10 @@ jobs:
         run: npm install -g vercel
 
       - name: Pull Vercel project settings
-        run: vercel pull --yes --environment=production --token "$VERCEL_TOKEN"
+        run: vercel pull --yes --environment=production --token "$VERCEL_TOKEN" --cwd frontend
 
       - name: Build for Vercel
-        run: vercel build --prod --token "$VERCEL_TOKEN"
+        run: vercel build --prod --token "$VERCEL_TOKEN" --cwd frontend
 
       - name: Deploy to Vercel
-        run: vercel deploy --prebuilt --prod --yes --token "$VERCEL_TOKEN"
+        run: vercel deploy --prebuilt --prod --yes --token "$VERCEL_TOKEN" --cwd frontend
