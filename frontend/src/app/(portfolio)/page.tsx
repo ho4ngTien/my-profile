@@ -1,19 +1,28 @@
 import { PortfolioLayout } from './layout'
-import { HeroSection } from '@/features/hero'
-import { AboutSection } from '@/features/about'
-import { SkillsSection } from '@/features/skills'
-import { ProjectsSection } from '@/features/projects'
-import { ContactSection } from '@/features/contact'
-
+import { AboutSection } from './components/AboutSection'
+import { ContactSection } from './components/ContactSection'
+import { HeroSection } from './components/HeroSection'
+import { PortfolioSection } from './components/PortfolioSection'
+import { ResumeSection } from './components/ResumeSection'
+import { ServicesSection } from './components/ServicesSection'
+import { SkillsSection } from './components/SkillsSection'
+import { StatsSection } from './components/StatsSection'
+import { TestimonialsSection } from './components/TestimonialsSection'
 
 export function PortfolioPage() {
   return (
     <PortfolioLayout>
-      <HeroSection />
-      <AboutSection />
-      <SkillsSection />
-      <ProjectsSection />
-      <ContactSection />
+      <main className="relative xl:ml-80">
+        <HeroSection />
+        <AboutSection />
+        <StatsSection />
+        <SkillsSection />
+        <ResumeSection />
+        <PortfolioSection />
+        <ServicesSection />
+        <TestimonialsSection />
+        <ContactSection />
+      </main>
     </PortfolioLayout>
   )
 }
