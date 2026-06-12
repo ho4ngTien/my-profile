@@ -6,7 +6,7 @@ interface PortfolioLayoutProps {
 
 export function PortfolioLayout({ children }: PortfolioLayoutProps) {
   return (
-    <div className="min-h-screen bg-slate-950 text-white">
+    <div className="min-h-screen bg-transparent text-[var(--text)]">
       {children}
     </div>
   )

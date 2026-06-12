@@ -1,132 +1,236 @@
 import { useEffect, useState } from 'react'
-
-const menuItems = [
-  { label: 'Home', href: '#hero', icon: '⌂' },
-  { label: 'About', href: '#about', icon: '◌' },
-  { label: 'Stats', href: '#stats', icon: '✦' },
-  { label: 'Skills', href: '#skills', icon: '▣' },
-  { label: 'Resume', href: '#resume', icon: '▭' },
-  { label: 'Portfolio', href: '#portfolio', icon: '◫' },
-  { label: 'Services', href: '#services', icon: '⚙' },
-  { label: 'Testimonials', href: '#testimonials', icon: '❝' },
-  { label: 'Contact', href: '#contact', icon: '✉' },
-]
+import { AnimatePresence, motion } from 'framer-motion'
+import { ArrowUpRight, BriefcaseBusiness, Mail, Menu, X } from 'lucide-react'
+import { navigationItems } from '../constants'
 
 const socialLinks = [
-  { label: 'GitHub', href: 'https://github.com/ho4ngTien', value: 'GH' },
-  { label: 'LinkedIn', href: 'https://linkedin.com', value: 'in' },
-  { label: 'Instagram', href: 'https://instagram.com', value: 'IG' },
-  { label: 'X', href: 'https://x.com', value: 'X' },
+  { label: 'GitHub', href: 'https://github.com/ho4ngTien', icon: GitHubMark },
+  { label: 'Email', href: 'mailto:maichilanoob@gmail.com', icon: Mail },
+  { label: 'Portfolio', href: '#hero', icon: ArrowUpRight },
 ]
+
+function GitHubMark() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="h-4 w-4">
+      <path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.48v-1.67c-2.78.62-3.36-1.39-3.36-1.39-.46-1.2-1.11-1.52-1.11-1.52-.91-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.57 2.34 1.12 2.91.86.09-.66.35-1.12.64-1.38-2.22-.26-4.55-1.15-4.55-5.11 0-1.13.39-2.06 1.03-2.79-.1-.26-.45-1.32.1-2.75 0 0 .84-.28 2.75 1.06A9.22 9.22 0 0 1 12 6.87c.85 0 1.71.12 2.5.35 1.9-1.34 2.74-1.06 2.74-1.06.56 1.43.21 2.49.1 2.75.64.73 1.03 1.66 1.03 2.79 0 3.97-2.34 4.85-4.57 5.1.36.32.68.93.68 1.88v2.78c0 .27.18.59.69.49A10.03 10.03 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z" />
+    </svg>
+  )
+}
+
+const navVariants = {
+  hidden: { opacity: 0, x: -16 },
+  visible: { opacity: 1, x: 0, transition: { staggerChildren: 0.06 } },
+}
+
+const itemVariants = {
+  hidden: { opacity: 0, x: -8 },
+  visible: { opacity: 1, x: 0 },
+}
 
 export function Sidebar() {
   const [isMobileOpen, setIsMobileOpen] = useState(false)
-  const [isCollapsed, setIsCollapsed] = useState(false)
+  const [activeId, setActiveId] = useState('hero')
 
   useEffect(() => {
-    document.documentElement.style.setProperty('--sidebar-width', isCollapsed ? '5rem' : '16rem')
+    const sections = navigationItems
+      .map((navItem: (typeof navigationItems)[number]) => document.getElementById(navItem.href.slice(1)))
+      .filter((section): section is HTMLElement => Boolean(section))
+
+    if (sections.length === 0) {
+      return undefined
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleEntry = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((left, right) => right.intersectionRatio - left.intersectionRatio)[0]
+
+        if (visibleEntry?.target.id) {
+          setActiveId(visibleEntry.target.id)
+        }
+      },
+      { rootMargin: '-35% 0px -45% 0px', threshold: [0.1, 0.3, 0.5, 0.7] },
+    )
+
+    sections.forEach((section) => observer.observe(section))
+
+    return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    document.body.style.overflow = isMobileOpen ? 'hidden' : ''
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsMobileOpen(false)
+      }
+    }
+
+    window.addEventListener('keydown', handleEscape)
 
     return () => {
-      document.documentElement.style.setProperty('--sidebar-width', '16rem')
+      document.body.style.overflow = ''
+      window.removeEventListener('keydown', handleEscape)
     }
-  }, [isCollapsed])
-
-  const sidebarWidthClass = isCollapsed ? 'w-20 px-3' : 'w-64 px-4'
+  }, [isMobileOpen])
 
   return (
     <>
       <button
         type="button"
         onClick={() => setIsMobileOpen((value) => !value)}
-        className="fixed right-4 top-4 z-50 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-slate-950/95 text-white shadow-2xl shadow-black/30 backdrop-blur xl:hidden"
+        className="fixed left-4 top-4 z-50 flex h-12 w-12 items-center justify-center rounded-full border border-[var(--border)] bg-[rgba(15,23,42,0.92)] text-[var(--text)] shadow-2xl shadow-black/35 backdrop-blur-xl xl:hidden"
         aria-label="Toggle navigation"
       >
-        <span className="text-base">☰</span>
+        <Menu className="h-5 w-5" />
       </button>
 
-      {isMobileOpen && (
-        <button
-          type="button"
-          aria-label="Close navigation overlay"
-          className="fixed inset-0 z-30 bg-black/60 xl:hidden"
-          onClick={() => setIsMobileOpen(false)}
-        />
-      )}
+      <AnimatePresence>
+        {isMobileOpen ? (
+          <>
+            <button
+              type="button"
+              aria-label="Close navigation overlay"
+              className="fixed inset-0 z-30 bg-black/60 backdrop-blur-[2px] xl:hidden"
+              onClick={() => setIsMobileOpen(false)}
+            />
 
-      <aside
-        className={`fixed inset-y-0 left-0 z-40 flex flex-col justify-between border-r border-white/10 bg-[linear-gradient(180deg,#050505_0%,#0a0708_55%,#050505_100%)] py-5 text-white shadow-[0_0_80px_rgba(0,0,0,0.9)] backdrop-blur-xl transition-[width,transform,padding] duration-300 ${sidebarWidthClass} ${isMobileOpen ? 'translate-x-0' : '-translate-x-full xl:translate-x-0'}`}
-      >
-        <div className="mb-3 flex items-center justify-end">
-          <button
-            type="button"
-            onClick={() => setIsCollapsed((value) => !value)}
-            className="hidden h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-sm text-slate-200 transition hover:border-red-400/30 hover:bg-red-500/10 hover:text-red-200 xl:flex"
-            aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-            title={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-          >
-            {isCollapsed ? '›' : '‹'}
-          </button>
-        </div>
+            <motion.aside
+              initial={{ x: -24, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: -24, opacity: 0 }}
+              transition={{ type: 'spring', stiffness: 260, damping: 28 }}
+              className="fixed inset-y-0 left-0 z-40 flex w-[min(88vw,18rem)] flex-col justify-between border-r border-[var(--border)] bg-[linear-gradient(180deg,rgba(15,23,42,0.98),rgba(30,41,59,0.96))] px-5 py-6 text-[var(--text)] shadow-[0_30px_90px_rgba(15,23,42,0.45)] backdrop-blur-2xl xl:w-[var(--sidebar-width)]"
+            >
+              <div className="space-y-6">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <div className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-white/5 px-3 py-1 text-[0.7rem] uppercase tracking-[0.3em] text-[var(--muted)]">
+                      <BriefcaseBusiness className="h-3.5 w-3.5 text-[var(--accent)]" />
+                      Available
+                    </div>
+                    <a href="#hero" className="mt-4 block text-2xl font-semibold tracking-tight text-white">
+                      Hoàng Tiến
+                    </a>
+                    <p className="mt-2 text-sm leading-6 text-[var(--muted)]">Frontend builder crafting premium, recruiter-friendly portfolio experiences.</p>
+                  </div>
 
-        <div className="space-y-6">
-          <div className={`space-y-4 text-center ${isCollapsed ? 'xl:text-center' : ''}`}>
-            <div className={`mx-auto flex items-center justify-center rounded-[1.6rem] border border-white/10 bg-[radial-gradient(circle_at_top,_rgba(239,68,68,0.35),_rgba(15,23,42,0.12)_55%),linear-gradient(145deg,_rgba(255,255,255,0.14),_rgba(15,23,42,0.8))] p-1.5 shadow-2xl shadow-red-500/10 ${isCollapsed ? 'h-14 w-14' : 'h-24 w-24'}`}>
-              <div className={`flex h-full w-full items-center justify-center rounded-[1.25rem] border border-white/10 bg-slate-900/75 font-bold tracking-[0.18em] text-red-300 ${isCollapsed ? 'text-sm' : 'text-2xl'}`}>
-                HT
+                  <button
+                    type="button"
+                    onClick={() => setIsMobileOpen(false)}
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--border)] bg-white/5 text-[var(--text)] transition hover:border-[var(--accent)]/40 hover:bg-[var(--accent)]/10 xl:hidden"
+                    aria-label="Close navigation"
+                  >
+                    <X className="h-5 w-5" />
+                  </button>
+                </div>
+
+                <motion.nav initial="hidden" animate="visible" variants={navVariants} className="space-y-2">
+                  {navigationItems.map((item) => {
+                    const isActive = activeId === item.href.slice(1)
+
+                    return (
+                      <motion.a
+                        key={item.label}
+                        href={item.href}
+                        variants={itemVariants}
+                        onClick={() => setIsMobileOpen(false)}
+                        className={`group flex items-center justify-between rounded-2xl border px-4 py-3 text-sm transition ${isActive ? 'border-[var(--accent)]/40 bg-[var(--accent)]/10 text-white shadow-[0_10px_24px_rgba(34,211,238,0.08)]' : 'border-transparent bg-white/[0.03] text-[var(--muted)] hover:border-[var(--border)] hover:bg-white/[0.05] hover:text-white'}`}
+                      >
+                        <span className="font-medium">{item.label}</span>
+                        <ArrowUpRight className="h-4 w-4 opacity-60 transition group-hover:opacity-100" />
+                      </motion.a>
+                    )
+                  })}
+                </motion.nav>
               </div>
+
+              <div className="space-y-5 pt-6">
+                <div className="grid grid-cols-3 gap-3">
+                  {socialLinks.map((link) => {
+                    const Icon = link.icon
+
+                    return (
+                      <a
+                        key={link.label}
+                        href={link.href}
+                        target={link.href.startsWith('http') ? '_blank' : undefined}
+                        rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
+                        className="flex flex-col items-center justify-center gap-2 rounded-2xl border border-[var(--border)] bg-white/5 px-3 py-4 text-xs font-medium text-[var(--muted)] transition hover:border-[var(--accent)]/40 hover:bg-[var(--accent)]/10 hover:text-white"
+                        aria-label={link.label}
+                      >
+                        <Icon className="h-4 w-4" />
+                        {link.label}
+                      </a>
+                    )
+                  })}
+                </div>
+
+                <p className="rounded-2xl border border-[var(--border)] bg-white/[0.03] px-4 py-4 text-xs leading-6 text-[var(--muted)]">
+                  Open to internship opportunities, freelance builds, and product-focused front-end collaboration.
+                </p>
+              </div>
+            </motion.aside>
+          </>
+        ) : null}
+      </AnimatePresence>
+
+      <aside className="fixed inset-y-0 left-0 z-40 hidden w-[var(--sidebar-width)] flex-col justify-between border-r border-[var(--border)] bg-[linear-gradient(180deg,rgba(15,23,42,0.96),rgba(30,41,59,0.92))] px-6 py-7 text-[var(--text)] shadow-[0_24px_80px_rgba(15,23,42,0.4)] backdrop-blur-2xl xl:flex">
+        <div className="space-y-7">
+          <div>
+            <div className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-white/5 px-3 py-1 text-[0.7rem] uppercase tracking-[0.3em] text-[var(--muted)]">
+              <BriefcaseBusiness className="h-3.5 w-3.5 text-[var(--accent)]" />
+              Available
             </div>
-
-            {!isCollapsed && (
-              <div>
-                <a href="#hero" className="text-xl font-semibold tracking-tight text-white transition hover:text-red-300">
-                  Hoàng Tiến
-                </a>
-                <p className="mt-1.5 text-xs text-slate-400">Full-stack Developer · UI-minded builder</p>
-              </div>
-            )}
+            <a href="#hero" className="mt-5 block text-[1.6rem] font-semibold tracking-tight text-white transition hover:text-[var(--accent)]">
+              Hoàng Tiến
+            </a>
+            <p className="mt-3 text-sm leading-6 text-[var(--muted)]">Frontend builder crafting premium, recruiter-friendly portfolio experiences.</p>
           </div>
 
-          <nav id="navmenu" className="navmenu">
-            <ul className={`space-y-1 text-sm ${isCollapsed ? 'xl:flex xl:flex-col xl:items-center' : ''}`}>
-              {menuItems.map((item) => (
-                <li key={item.label}>
-                  <a
-                    href={item.href}
-                    onClick={() => setIsMobileOpen(false)}
-                    className={`group flex items-center rounded-2xl border border-transparent py-2.5 text-slate-300 transition hover:border-white/10 hover:bg-white/5 hover:text-white ${isCollapsed ? 'justify-center gap-0 px-0 xl:w-11' : 'gap-2.5 px-3'}`}
-                  >
-                    <span className="flex h-7 w-7 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-xs text-slate-200 transition group-hover:border-red-400/20 group-hover:bg-red-500/10 group-hover:text-red-200">
-                      {item.icon}
-                    </span>
-                    {!isCollapsed && <span className="font-medium">{item.label}</span>}
-                  </a>
-                </li>
-              ))}
-            </ul>
+          <nav aria-label="Primary navigation" className="space-y-2">
+            {navigationItems.map((item) => {
+              const isActive = activeId === item.href.slice(1)
+
+              return (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className={`group flex items-center justify-between rounded-2xl border px-4 py-3 text-sm transition ${isActive ? 'border-[var(--accent)]/40 bg-[var(--accent)]/10 text-white shadow-[0_10px_24px_rgba(34,211,238,0.08)]' : 'border-transparent bg-white/[0.03] text-[var(--muted)] hover:border-[var(--border)] hover:bg-white/[0.05] hover:text-white'}`}
+                >
+                  <span className="font-medium">{item.label}</span>
+                  <ArrowUpRight className="h-4 w-4 opacity-60 transition group-hover:opacity-100" />
+                </a>
+              )
+            })}
           </nav>
         </div>
 
-        <div className="space-y-4 pt-4">
-          <div className={`items-center justify-center gap-2 ${isCollapsed ? 'hidden xl:flex' : 'flex'}`}>
-            {socialLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                target="_blank"
-                rel="noreferrer"
-                className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 text-[10px] font-semibold text-slate-200 transition hover:border-red-400/30 hover:bg-red-500/10 hover:text-red-200"
-                aria-label={link.label}
-              >
-                {link.value}
-              </a>
-            ))}
+        <div className="space-y-5 pt-6">
+          <div className="grid grid-cols-3 gap-3">
+            {socialLinks.map((link) => {
+              const Icon = link.icon
+
+              return (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target={link.href.startsWith('http') ? '_blank' : undefined}
+                  rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
+                  className="flex flex-col items-center justify-center gap-2 rounded-2xl border border-[var(--border)] bg-white/5 px-3 py-4 text-xs font-medium text-[var(--muted)] transition hover:border-[var(--accent)]/40 hover:bg-[var(--accent)]/10 hover:text-white"
+                  aria-label={link.label}
+                >
+                  <Icon className="h-4 w-4" />
+                  {link.label}
+                </a>
+              )
+            })}
           </div>
 
-          {!isCollapsed && (
-            <p className="border-t border-white/10 pt-4 text-center text-[11px] leading-5 text-slate-500">
-              Crafted with React, TypeScript and Tailwind.
-            </p>
-          )}
+          <p className="rounded-2xl border border-[var(--border)] bg-white/[0.03] px-4 py-4 text-xs leading-6 text-[var(--muted)]">
+            Open to internship opportunities, freelance builds, and product-focused front-end collaboration.
+          </p>
         </div>
       </aside>
     </>

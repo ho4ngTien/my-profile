@@ -7,10 +7,10 @@ interface MainLayoutProps {
 
 export function MainLayout({ children }: MainLayoutProps) {
   return (
-    <div className="min-h-screen bg-[#020617] text-white">
+    <div className="min-h-screen bg-[var(--bg)] text-[var(--text)]">
       <Sidebar />
       
-      <div className="xl:ml-[var(--sidebar-width,16rem)]">
+      <div className="xl:ml-[var(--sidebar-width)]">
         <Header />
         
         <main className="min-h-[calc(100vh-8rem)]">
