@@ -1,1 +1,1 @@
-export * from './SkillsSection'
+export * from './Skills'
