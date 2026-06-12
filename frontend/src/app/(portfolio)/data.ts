@@ -1,86 +1,99 @@
+export const navigationItems = [
+  { label: 'Hero', href: '#hero' },
+  { label: 'About', href: '#about' },
+  { label: 'Resume', href: '#resume' },
+  { label: 'Skills', href: '#skills' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Services', href: '#services' },
+  { label: 'Contact', href: '#contact' },
+]
+
 export const heroStats = [
-  { value: '50+', label: 'Projects Completed' },
-  { value: '3+', label: 'Years Experience' },
-  { value: '25+', label: 'Happy Clients' },
+  { value: '4', label: 'Flagship projects', description: 'Portfolio, education, civic-tech, and dashboard concepts.' },
+  { value: '3', label: 'Core strengths', description: 'Frontend craft, backend awareness, and product thinking.' },
+  { value: '100%', label: 'Responsive focus', description: 'Viewport-aware layouts tuned for mobile-first delivery.' },
 ]
 
 export const aboutCards = [
   {
-    title: 'Product Strategy',
-    description: 'User research, journey mapping, and design thinking aimed at clear product outcomes.',
+    title: 'Friendly delivery',
+    description: 'Clear communication, practical iteration, and a collaborative working style.',
   },
   {
-    title: 'Mobile & Web Design',
-    description: 'Responsive interfaces and smooth experiences across devices and breakpoints.',
+    title: 'Product-minded UI',
+    description: 'Interfaces that feel premium without sacrificing readability or speed.',
   },
   {
-    title: 'Design Systems',
-    description: 'Scalable component libraries and a consistent visual language for future growth.',
+    title: 'Full-stack awareness',
+    description: 'Comfortable shaping frontend experiences while understanding the backend story.',
   },
 ]
 
 export const statsCards = [
-  { value: '127', label: 'Projects delivered' },
-  { value: '89K', label: 'Users impacted' },
-  { value: '234+', label: 'Design iterations' },
+  { value: '4', label: 'Highlighted builds' },
+  { value: '2', label: 'Active code stacks' },
+  { value: '100%', label: 'Responsive layouts' },
 ]
 
 export const achievementCards = [
-  { title: 'Excellence', description: 'Quality, reliability, and thoughtful execution.' },
-  { title: 'Recognition', description: 'Clear communication and collaborative delivery.' },
-  { title: 'Innovation', description: 'Modern interfaces with practical implementation.' },
+  { title: 'Reliable', description: 'Consistent polish, predictable layouts, and thoughtful execution.' },
+  { title: 'Approachable', description: 'Friendly tone, easy navigation, and clear visual hierarchy.' },
+  { title: 'Modern', description: 'Glassmorphism, motion, and clean spacing with a SaaS feel.' },
 ]
 
 export const skillGroups = [
   {
-    title: 'Technical Expertise',
-    subtitle: 'Core development and technical skills',
+    title: 'Frontend Craft',
+    subtitle: 'UI composition and interactive experiences',
     skills: [
-      { name: 'React / TypeScript', value: 92 },
-      { name: 'Frontend Architecture', value: 88 },
-      { name: 'API Integration', value: 85 },
+      { name: 'React', value: 92 },
+      { name: 'TypeScript', value: 90 },
+      { name: 'Tailwind CSS', value: 94 },
+      { name: 'Framer Motion', value: 80 },
     ],
   },
   {
-    title: 'Creative Design',
-    subtitle: 'Visual and user experience design',
+    title: 'Application Architecture',
+    subtitle: 'Scalable structure and reusable systems',
     skills: [
-      { name: 'UI/UX Design', value: 94 },
-      { name: 'Brand Identity', value: 86 },
-      { name: 'Motion Direction', value: 78 },
+      { name: 'Component Design', value: 91 },
+      { name: 'Routing & Layouts', value: 86 },
+      { name: 'API Integration', value: 84 },
+      { name: 'State Management', value: 79 },
     ],
   },
   {
-    title: 'Strategic Leadership',
-    subtitle: 'Management and business acumen',
+    title: 'Delivery Workflow',
+    subtitle: 'Tools that support reliable shipping',
     skills: [
-      { name: 'Project Management', value: 90 },
-      { name: 'Team Coordination', value: 87 },
-      { name: 'Strategic Planning', value: 83 },
+      { name: 'Git & GitHub', value: 93 },
+      { name: 'Vite', value: 89 },
+      { name: 'ESLint', value: 85 },
+      { name: 'Responsive QA', value: 90 },
     ],
   },
 ]
 
-export const technologies = ['JavaScript', 'React', 'Node.js', 'AWS', 'Figma', 'Docker']
+export const technologies = ['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Spring Boot', 'MySQL']
 
 export const experienceItems = [
   {
     year: '2023 - Present',
-    title: 'Frontend Developer',
-    company: 'Independent / Freelance',
-    description: 'Building portfolio websites and product interfaces with React, TypeScript and modern UI systems.',
+    title: 'Computer Science Student',
+    company: 'University of Transport Ho Chi Minh City',
+    description: 'Studying software engineering fundamentals, web systems, and delivery best practices.',
   },
   {
-    year: '2021 - 2023',
-    title: 'Full-stack Project Builder',
-    company: 'University and personal projects',
-    description: 'Shipping academic and self-directed systems with Spring Boot, React and MySQL.',
+    year: '2024 - Present',
+    title: 'Frontend Builder',
+    company: 'Independent projects',
+    description: 'Designing responsive landing pages and product interfaces with React, TypeScript, and Tailwind.',
   },
   {
-    year: '2019 - 2021',
-    title: 'UI / Web Enthusiast',
-    company: 'Learning and experimentation',
-    description: 'Focused on responsive layouts, component-based design and interaction patterns.',
+    year: '2022 - 2024',
+    title: 'Full-stack Explorer',
+    company: 'Academic and self-directed work',
+    description: 'Building Spring Boot and MySQL backends to support feature-rich web applications.',
   },
 ]
 
@@ -89,66 +102,75 @@ export const educationItems = [
     degree: 'Computer Science',
     institution: 'University of Transport Ho Chi Minh City',
     year: '2023 - Present',
-    description: 'Focused on software engineering, web systems and delivery fundamentals.',
+    description: 'Focused on programming fundamentals, data structures, and application delivery.',
     badge: 'Current study',
   },
   {
     degree: 'Frontend / Backend Practice',
     institution: 'React, TypeScript, Spring Boot, MySQL',
     year: 'Self-directed',
-    description: 'Built practical projects that connect interface design with service-oriented thinking.',
+    description: 'Combining interface design with service-oriented thinking and practical implementation.',
   },
 ]
 
 export const certifications = [
-  { name: 'Advanced UX Design', provider: 'Design Academy • 2022' },
-  { name: 'Digital Innovation Strategy', provider: 'Innovation Institute • 2021' },
-  { name: 'Leadership in Design', provider: 'Leadership Academy • 2020' },
+  { name: 'Responsive UI Systems', provider: 'Personal practice • 2024' },
+  { name: 'Spring Boot Fundamentals', provider: 'Academic project work • 2024' },
+  { name: 'Designing with Motion', provider: 'Interface experiments • 2025' },
 ]
 
 export const projects = [
   {
-    category: 'Branding / Product',
-    year: '2024',
-    title: 'Flood Rescue Coordination',
-    description: 'A coordination platform for disaster relief workflows, volunteer matching and crisis updates.',
-  },
-  {
-    category: 'Web Application',
-    year: '2024',
-    title: 'Edu Student Management',
-    description: 'A school management system with classroom, grade and learning module support.',
-  },
-  {
-    category: 'Frontend Design',
+    category: 'Frontend / Portfolio',
     year: '2026',
     title: 'Personal Portfolio Landing Page',
-    description: 'A bold, responsive personal portfolio aligned with the same one-page aesthetic.',
+    description: 'A premium single-page portfolio with motion, a sticky sidebar, and clear recruiter-friendly storytelling.',
+    tech: ['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
+    githubUrl: 'https://github.com/ho4ngTien/my-profile',
+    liveUrl: '#hero',
   },
   {
-    category: 'UI / Dashboard',
+    category: 'Civic Tech / Full Stack',
+    year: '2024',
+    title: 'Flood Rescue Coordination',
+    description: 'A coordination platform for relief workflows, volunteer matching, and crisis updates.',
+    tech: ['Java', 'Spring Boot', 'React', 'MySQL'],
+    githubUrl: 'https://github.com/longtq2501/Flood-Rescue-Coordination-and-Relief-Management-System',
+  },
+  {
+    category: 'Education Platform',
+    year: '2024',
+    title: 'Edu Student Management',
+    description: 'A school management system with classroom, grade, and learning module support.',
+    tech: ['Java', 'Spring Boot', 'MySQL'],
+    githubUrl: 'https://github.com/ho4ngTien/Edu',
+  },
+  {
+    category: 'Dashboard Concept',
     year: '2025',
     title: 'System Dashboard Mockup',
-    description: 'A concept for monitoring workflows, metrics and project status in one view.',
+    description: 'A concept for metrics, workflow tracking, and quick status scanning in one view.',
+    tech: ['React', 'Design System', 'UI Motion'],
+    githubUrl: 'https://github.com/ho4ngTien',
   },
 ]
 
 export const services = [
   {
-    title: 'Brand Identity Design',
-    description: 'Visual identities, design systems and presentation-ready assets that feel coherent.',
+    title: 'Portfolio & Landing Pages',
+    description: 'Clean one-page experiences with premium visuals, smooth motion, and responsive structure.',
   },
   {
-    title: 'Web Development',
-    description: 'Modern, responsive websites and apps with clean code and polished interactions.',
+    title: 'Frontend Systems',
+    description: 'Reusable components, layout architecture, and scalable UI patterns for product teams.',
   },
   {
-    title: 'UI/UX Design',
-    description: 'Product flows and interfaces that balance clarity, polish and usability.',
+    title: 'Full-Stack Prototypes',
+    description: 'Web applications that connect polished interfaces to practical backend workflows.',
   },
   {
-    title: 'Digital Strategy',
-    description: 'Planning support that ties user needs, business goals and implementation priorities together.',
+    title: 'Interface Polish',
+    description: 'Refinement passes that improve hierarchy, spacing, motion, and conversion clarity.',
   },
 ]
 
@@ -157,18 +179,18 @@ export const testimonials = [
     name: 'Sophia Martinez',
     role: 'Operations Director',
     company: 'TechVision Corp',
-    quote: 'The work is sharp, intentional and very well executed. The final result felt premium and extremely usable.',
+    quote: 'The result felt premium, easy to navigate, and very clear for both clients and recruiters.',
   },
   {
     name: 'Michael Anderson',
     role: 'Project Manager',
     company: 'InnovateTech Ltd',
-    quote: 'Communication was clear, delivery was fast, and the interface felt much more refined after the redesign.',
+    quote: 'Delivery was organized and the interface felt much more refined after the redesign.',
   },
   {
     name: 'Jennifer Wilson',
     role: 'Digital Strategy Lead',
     company: 'FutureScope Inc',
-    quote: 'Strong attention to detail and a good sense of visual hierarchy. The site now feels much more credible.',
+    quote: 'Strong hierarchy, thoughtful spacing, and a confident modern visual direction.',
   },
 ]
